@@ -26,7 +26,7 @@ type Props = {
 // type Props = NativeStackScreenProps<RootStackParamList, 'TrackCreateScreen'>;
 
 const CreateTrack = ({ route, navigation }: Props) => {
-    const { addLocation } = useLocation();
+    const { addLocation, isRecording } = useLocation();
     const [errorMsg, setErrorMsg] = useState<Nullable<string>>(null);
 
     const insets = useSafeAreaInsets();
@@ -53,7 +53,7 @@ const CreateTrack = ({ route, navigation }: Props) => {
             }
             cleanupSimulatedLocationUpdates();
         };
-    }, []);
+    }, [isRecording]);
     return (
         <SafeAreaView>
             <Text h2>Create a Track</Text>

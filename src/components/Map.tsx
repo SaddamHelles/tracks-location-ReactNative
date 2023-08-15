@@ -15,7 +15,7 @@ interface Props {
 }
 
 const Map = () => {
-    const { currentLocation } = useLocation();
+    const { currentLocation, locations } = useLocation();
     const [errorMsg, setErrorMsg] = useState<Nullable<string>>(null);
     const [location, setLocation] =
         useState<Nullable<Location.LocationObject>>(null);
@@ -46,7 +46,6 @@ const Map = () => {
             }
 
             let location = await Location.getCurrentPositionAsync({});
-            console.log('location: ', location);
             setLocation(location);
         })();
 
@@ -54,7 +53,7 @@ const Map = () => {
         return () => {
             cleanupSimulatedLocationUpdates();
         };
-    }, []);
+    }, [currentLocation]);
 
     if (!currentLocation) {
         return <ActivityIndicator size={'large'} style={{ marginTop: 200 }} />;
