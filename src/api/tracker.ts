@@ -2,7 +2,7 @@ import * as SecureStore from 'expo-secure-store';
 import axios, { AxiosRequestConfig, AxiosError } from 'axios';
 
 const trackerApi = axios.create({
-    baseURL: 'https://d91c-188-161-220-156.ngrok.io',
+    baseURL: 'https://9226-188-161-125-150.ngrok.io',
     headers: {
         Authorization: `Bearer ${SecureStore.getItemAsync('token')}`,
     },

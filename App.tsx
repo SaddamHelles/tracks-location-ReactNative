@@ -22,7 +22,7 @@ const Tab = createBottomTabNavigator();
 export type RootStackParamList = {
     Home: undefined;
     TrackCreateScreen: undefined;
-    TrackDetailScreen: undefined;
+    TrackDetailScreen: { _id: string } | undefined;
     SignupScreen: undefined;
     SigninScreen: undefined;
     AccountScreen: undefined;
@@ -120,6 +120,7 @@ const MainNavigation = () => {
                         tabBarInactiveTintColor: 'gray',
                         contentStyle: { backgroundColor: 'white' },
                         headerShown: false,
+                        // headerMode: 'screen',
                     })}>
                     <Tab.Screen
                         name="TrackListScreen"
@@ -131,10 +132,16 @@ const MainNavigation = () => {
                         component={TrackCreateScreen}
                         options={{ title: 'New Track' }}
                     />
+
                     <Tab.Screen
                         name="AccountScreen"
                         component={AccountScreen}
                         options={{ title: 'Setting' }}
+                    />
+                    <Tab.Screen
+                        name="TrackDetailScreen"
+                        component={TrackDetailScreen}
+                        options={{ tabBarButton: () => null }}
                     />
                 </Tab.Navigator>
             )}

@@ -25,7 +25,7 @@ type Props = {
 };
 // type Props = NativeStackScreenProps<RootStackParamList, 'TrackCreateScreen'>;
 
-const CreateTrack = ({ route, navigation }: Props) => {
+const CreateTrack = ({ navigation }: Props) => {
     const { addLocation, isRecording } = useLocation();
     const [errorMsg, setErrorMsg] = useState<Nullable<string>>(null);
 

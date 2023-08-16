@@ -20,22 +20,6 @@ const Map = () => {
     const [location, setLocation] =
         useState<Nullable<Location.LocationObject>>(null);
 
-    // let points: Coordinates[] = [{ latitude: 37.33233, longitude: -122.03121 }];
-    // for (let i = 0; i < 20; i++) {
-    //     if (location) {
-    //         if (i % 2 === 0) {
-    //             points.push({
-    //                 latitude: Number(location?.coords.latitude) + i * 0.001,
-    //                 longitude: Number(location?.coords.longitude) + i * 0.001,
-    //             });
-    //         } else {
-    //             points.push({
-    //                 latitude: Number(location?.coords.latitude) + i * 0.002,
-    //                 longitude: Number(location?.coords.longitude) + i * 0.001,
-    //             });
-    //         }
-    //     }
-    // }
     const initialLocation = {
         latitude: 31.4927667,
         longitude: 34.47203,
