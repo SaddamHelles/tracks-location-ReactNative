@@ -2,7 +2,7 @@ import { LocationObject } from 'expo-location';
 import { PropsWithChildren, createContext, useContext, useState } from 'react';
 import { Nullable } from '../utils/Nullable';
 
-interface LocationContextType {
+interface LocationProps {
     currentLocation: Nullable<LocationObject>;
     startRecording: () => void;
     stopRecording: () => void;
@@ -11,15 +11,16 @@ interface LocationContextType {
     name: string;
     isRecording: boolean;
     locations: LocationObject[];
+    reset: () => void;
 }
-const LocationContext = createContext<LocationContextType | undefined>(
-    {} as LocationContextType
+const LocationContext = createContext<LocationProps | undefined>(
+    {} as LocationProps
 );
 
 export const LocationProvider: React.FC<PropsWithChildren> = ({ children }) => {
     const [isRecording, setIsRecording] = useState(false);
-    const [name, setName] = useState('');
     const [locations, setLocations] = useState<LocationObject[]>([]);
+    const [name, setName] = useState('');
     const [currentLocation, setCurrentLocation] =
         useState<Nullable<LocationObject>>(null);
 
@@ -33,9 +34,8 @@ export const LocationProvider: React.FC<PropsWithChildren> = ({ children }) => {
 
     const addLocation = (location: LocationObject) => {
         setCurrentLocation(location);
-        console.log('isRecording: ', isRecording);
+        // console.log('isRecording: ', isRecording);
         if (isRecording) {
-            console.log('locationnn: ', location);
             console.log('array of locations: ', locations.length);
             setLocations(prev => [...prev, location]);
         }
@@ -45,6 +45,10 @@ export const LocationProvider: React.FC<PropsWithChildren> = ({ children }) => {
         setName(name);
     };
 
+    const reset = () => {
+        setName('');
+        setLocations([]);
+    };
     const locationContextValue = {
         startRecording,
         stopRecording,
@@ -54,6 +58,7 @@ export const LocationProvider: React.FC<PropsWithChildren> = ({ children }) => {
         name,
         isRecording,
         locations,
+        reset,
     };
     return (
         <LocationContext.Provider value={locationContextValue}>
@@ -62,7 +67,7 @@ export const LocationProvider: React.FC<PropsWithChildren> = ({ children }) => {
     );
 };
 
-export const useLocation = (): LocationContextType => {
+export const useLocation = (): LocationProps => {
     const context = useContext(LocationContext);
     if (!context) {
         throw new Error('useLocation must be used within an LocationProvider');

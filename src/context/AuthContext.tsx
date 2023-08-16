@@ -47,7 +47,6 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
                 '/signup',
                 signupInfo
             );
-            console.log('response data: ', data);
             setToken(data.token);
             await SecureStore.setItemAsync('token', data.token);
             if (status === 200) {
@@ -60,8 +59,6 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
     };
 
     const signin = async (signinInfo: UserInfo) => {
-        console.log('signinInfo: ', signinInfo);
-
         try {
             const { data, status } = await trackerApi.post<AxiosProp>(
                 '/signin',

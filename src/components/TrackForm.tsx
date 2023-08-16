@@ -1,10 +1,12 @@
 import { Button, Input } from '@rneui/themed';
-import { SafeAreaView } from 'react-native';
+import { SafeAreaView, View } from 'react-native';
 import React from 'react';
 import Spacer from './Spacer';
 import { useLocation } from '../context/LocationContext';
+import useSaveTrack from '../hooks/useSaveTrack';
 
 const TrackForm = () => {
+    const [saveTrack] = useSaveTrack();
     const {
         startRecording,
         stopRecording,
@@ -23,11 +25,20 @@ const TrackForm = () => {
                 onChangeText={changeName}
                 placeholder="Track Name"
             />
-            {isRecording ? (
-                <Button title="Stop" onPress={stopRecording} />
-            ) : (
-                <Button title="Start Recording" onPress={startRecording} />
-            )}
+            <View style={{ marginHorizontal: 10 }}>
+                {isRecording ? (
+                    <Button title="Stop" onPress={stopRecording} />
+                ) : (
+                    <Button title="Start Recording" onPress={startRecording} />
+                )}
+
+                {!isRecording && locations.length ? (
+                    <>
+                        <Spacer />
+                        <Button title={'Save Recording'} onPress={saveTrack} />
+                    </>
+                ) : null}
+            </View>
         </SafeAreaView>
     );
 };

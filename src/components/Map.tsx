@@ -36,6 +36,10 @@ const Map = () => {
     //         }
     //     }
     // }
+    const initialLocation = {
+        latitude: 31.4927667,
+        longitude: 34.47203,
+    };
     useEffect(() => {
         (async () => {
             let { status } = await Location.requestForegroundPermissionsAsync();
@@ -63,26 +67,26 @@ const Map = () => {
             {location && (
                 <MapView
                     initialRegion={{
-                        // latitude: Number(currentLocation?.coords.latitude),
-                        // longitude: Number(currentLocation?.coords.longitude),
+                        ...initialLocation,
+                        latitudeDelta: 0.01,
+                        longitudeDelta: 0.01,
+                    }}
+                    region={{
                         ...currentLocation.coords,
                         latitudeDelta: 0.01,
                         longitudeDelta: 0.01,
                     }}
-                    // region={{
-                    //     ...currentLocation.coords,
-                    //     latitudeDelta: 0.04,
-                    //     longitudeDelta: 0.04,
-                    // }}
                     scrollEnabled={true}
                     zoomEnabled
                     style={styles.map}>
-                    {/* <Polyline coordinates={points} /> */}
                     <Circle
                         center={currentLocation.coords}
                         radius={30}
                         strokeColor="rgba(158,158,255,1.0)"
                         fillColor="rgba(158,158,255,0.3)"
+                    />
+                    <Polyline
+                        coordinates={locations.map(location => location.coords)}
                     />
                 </MapView>
             )}

@@ -15,6 +15,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { View } from 'react-native';
 import { Text } from '@rneui/themed';
 import { LocationProvider } from './src/context/LocationContext';
+import { TrackProvider } from './src/context/TrackContext';
 
 const Tab = createBottomTabNavigator();
 
@@ -32,15 +33,17 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
     return (
-        <LocationProvider>
-            <AuthProvider>
-                <SafeAreaProvider>
-                    <NavigationContainer>
-                        <MainNavigation />
-                    </NavigationContainer>
-                </SafeAreaProvider>
-            </AuthProvider>
-        </LocationProvider>
+        <TrackProvider>
+            <LocationProvider>
+                <AuthProvider>
+                    <SafeAreaProvider>
+                        <NavigationContainer>
+                            <MainNavigation />
+                        </NavigationContainer>
+                    </SafeAreaProvider>
+                </AuthProvider>
+            </LocationProvider>
+        </TrackProvider>
     );
 }
 
